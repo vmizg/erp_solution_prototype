@@ -19,7 +19,7 @@ import django_rest.views as django_rest
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', django_rest.AllTech.as_view()),
     url(r'(?P<pk>\d+)', django_rest.TechView.as_view()),
-    url(r'^crypt/', django_rest.Crypt.as_view())
+    url(r'^crypt/', django_rest.Crypt.as_view()),
+    url(r'', django_rest.AllTech.as_view())
 ]
