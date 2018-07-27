@@ -1,4 +1,4 @@
-"""erp_web URL Configuration
+"""backend URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-import django_rest.views as django_rest
+import webapi.views as django_rest
 from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
@@ -26,13 +26,12 @@ router.register(r'workpermit', django_rest.WorkPermitView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/employee/(?P<pk>\d+)', django_rest.EmployeeDetailView.as_view()),
-    url(r'^api/', include(router.urls)),
+    url(r'^employee/(?P<pk>\d+)', django_rest.EmployeeDetailView.as_view()),
     url(r'api-token-auth/', obtain_jwt_token),
     url(r'api-token-refresh/', refresh_jwt_token),
+    url(r'', include(router.urls)),
 ]
 
 urlpatterns += [
     url(r'^api-auth/', include('rest_framework.urls')),
 ]
-

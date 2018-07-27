@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 
-from django_rest.models import Employee, EmployeeContract, EmployeeWorkPermit
-from django_rest.serializer import EmployeeSerializer, EmployeeContractSerializer, EmployeeWorkPermitSerializer
+from webapi.models import Employee, EmployeeContract, EmployeeWorkPermit
+from webapi.serializers import EmployeeSerializer, EmployeeContractSerializer, EmployeeWorkPermitSerializer
 
 
 class EmployeeDetailView(APIView):
