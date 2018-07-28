@@ -1,0 +1,28 @@
+<div class="signin-container">
+  <mat-grid-list cols="1" row>
+    <mat-card class="signin-card">
+      <mat-card-content>
+        <h2>Anquan ERP</h2>
+        <form class="signin-form" #signinform>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Username" name="username" [(ngModel)]="user.username" required>
+            <span *ngFor="let error of authService.errors.username"><br />
+              {{ error }}</span>
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <input type="password" matInput placeholder="Password" name="password" [(ngModel)]="user.password" required>
+            <span *ngFor="let error of authService.errors.password"><br />
+              {{ error }}</span>
+          </mat-form-field>
+        </form>
+        <button mat-raised-button color="accent" (click)="login()">
+          <mat-icon>arrow_forward</mat-icon>Sign in
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="authService.errors.non_field_errors">
+      <span *ngFor="let error of authService.errors.non_field_errors">{{ error }}<br /></span>
+    </mat-card>
+  </mat-grid-list>
+</div>

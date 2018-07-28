@@ -27,8 +27,8 @@ router.register(r'workpermit', django_rest.WorkPermitView)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^employee/(?P<pk>\d+)', django_rest.EmployeeDetailView.as_view()),
-    url(r'api-token-auth/', obtain_jwt_token),
-    url(r'api-token-refresh/', refresh_jwt_token),
+    url(r'jwt-auth/', obtain_jwt_token),
+    url(r'jwt-refresh/', refresh_jwt_token),
     url(r'', include(router.urls)),
 ]
 

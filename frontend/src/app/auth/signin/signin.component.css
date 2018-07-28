@@ -1,0 +1,10 @@
+.signin-card {
+  margin: 10px auto;
+}
+
+.signin-container {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
