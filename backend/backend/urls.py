@@ -22,7 +22,6 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 router = DefaultRouter()
 router.register(r'employee', django_rest.EmployeeView)
 router.register(r'contract', django_rest.ContractView)
-router.register(r'workpermit', django_rest.WorkPermitView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

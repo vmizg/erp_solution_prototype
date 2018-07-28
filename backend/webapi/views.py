@@ -5,9 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 
-from webapi.models import Employee, EmployeeContract, EmployeeWorkPermit
-from webapi.serializers import EmployeeSerializer, EmployeeContractSerializer, EmployeeWorkPermitSerializer
-
+from webapi.models import Employee, EmployeeContract
+from webapi.serializers import EmployeeSerializer, EmployeeContractSerializer
 
 class EmployeeDetailView(APIView):
 
@@ -28,8 +27,3 @@ class EmployeeView(viewsets.ModelViewSet):
 class ContractView(viewsets.ModelViewSet):
     queryset = EmployeeContract.objects.all()
     serializer_class = EmployeeContractSerializer
-
-
-class WorkPermitView(viewsets.ModelViewSet):
-    queryset = EmployeeWorkPermit.objects.all()
-    serializer_class = EmployeeWorkPermitSerializer

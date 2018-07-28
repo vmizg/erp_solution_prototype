@@ -1,51 +1,45 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
 from django.db import models
 from encrypted_fields import *
 
 
 class Employee(models.Model):
-    name = models.CharField(max_length=100)
-    working_address = models.CharField(max_length=200)
-    work_mobile = models.CharField(max_length=12)
-    work_location = models.CharField(max_length=200)
-    work_email = models.EmailField()
-    work_phone = models.CharField(max_length=12)
-    public_info = models.CharField(max_length=400)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    name = models.CharField(max_length=100, default='')
+    working_address = models.CharField(max_length=200, default='')
+    work_mobile = models.CharField(max_length=12, default='')
+    work_location = models.CharField(max_length=200, default='')
+    work_email = models.EmailField(default='')
+    work_phone = models.CharField(max_length=12, default='')
+    public_info = models.CharField(max_length=400, default='')
 
     def __str__(self):
         return self.name
 
 
 class EmployeeContract(models.Model):
-    name = models.OneToOneField(Employee)
+    employee = models.OneToOneField(Employee, on_delete=models.CASCADE)
 
-    job_title = EncryptedCharField(max_length=100)
-    dc_type = EncryptedCharField(max_length=50)
-    wage = EncryptedFloatField()
-    salary_struct = EncryptedCharField(max_length=100)
-    tp_duration_begin = EncryptedDateField()
-    tp_duration_end = EncryptedDateField()
-    duration_begin = EncryptedDateField()
-    duration_end = EncryptedDateField()
-    schedule = EncryptedIntegerField() # days / week
-    pay_schedule = EncryptedIntegerField() # corresponding to pay type (0 - monthly, 1 - weekly, etc)
-
-    def __str__(self):
-        return self.name
-
-
-class EmployeeWorkPermit(models.Model):
-    name = models.OneToOneField(EmployeeContract)
-
-    visa_no = EncryptedCharField(max_length=50)
-    visa_expiry = EncryptedDateField()
-    work_permit_no = EncryptedCharField(max_length=50)
+    job_title = EncryptedCharField(max_length=100, default='')
+    dc_type = EncryptedCharField(max_length=50, default='')
+    wage = EncryptedFloatField(default=0.0)
+    salary_struct = EncryptedCharField(max_length=100, default='')
+    tp_duration_begin = EncryptedDateField(default='')
+    tp_duration_end = EncryptedDateField(default='')
+    duration_begin = EncryptedDateField(default='')
+    duration_end = EncryptedDateField(default='')
+    schedule = EncryptedIntegerField(default=0) # days / week
+    pay_schedule = EncryptedIntegerField(default=0) # corresponding to pay type (0 - monthly, 1 - weekly, etc)
+    visa_no = EncryptedCharField(max_length=50, default='')
+    visa_expiry = EncryptedDateField(default='')
+    work_permit_no = EncryptedCharField(max_length=50, default='')
 
     def __str__(self):
-        return self.name
-
+        return str(self.employee)
 
 
 
