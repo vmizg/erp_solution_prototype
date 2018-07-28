@@ -16,19 +16,16 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 import webapi.views as django_rest
-from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
-
-router = DefaultRouter()
-router.register(r'employee', django_rest.EmployeeView)
-router.register(r'contract', django_rest.ContractView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^employee/(?P<pk>\d+)', django_rest.EmployeeDetailView.as_view()),
+    url(r'^employee/', django_rest.EmployeeView.as_view()),
+    url(r'^contract/(?P<pk>\d+)', django_rest.EmployeeContractDetailView.as_view()),
+    url(r'^contract/', django_rest.EmployeeContractView.as_view()),
     url(r'jwt-auth/', obtain_jwt_token),
     url(r'jwt-refresh/', refresh_jwt_token),
-    url(r'', include(router.urls)),
 ]
 
 urlpatterns += [
