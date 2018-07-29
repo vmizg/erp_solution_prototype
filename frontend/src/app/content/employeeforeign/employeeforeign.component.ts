@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from "../../services/api.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css']
+  selector: 'app-employee-foreign',
+  templateUrl: './employeeforeign.component.html',
+  styleUrls: ['./employeeforeign.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeForeignComponent implements OnInit {
 
+  userId = null;
+
+  forbidden = false;
   noProfile = false;
   noContract = false;
 
@@ -17,10 +21,16 @@ export class EmployeeComponent implements OnInit {
   contractData = {};
   workpermitData = {};
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.apiService.getUser()
+    // This checks the route path and will fetch the required user id
+    // from the route argument
+      this.route.params.subscribe(params => {
+          this.userId = params['id'];
+      });
+
+    this.apiService.getUserById(this.userId)
       .subscribe(
         data => {
           this.first_name = data['first_name'];
@@ -28,7 +38,7 @@ export class EmployeeComponent implements OnInit {
         },
         err => console.error(err)
       );
-    this.apiService.getEmployee()
+    this.apiService.getEmployeeById(this.userId)
       .subscribe(
         data => this.employeeData = data,
         err => {
@@ -37,7 +47,7 @@ export class EmployeeComponent implements OnInit {
           }
         }
       );
-    this.apiService.getContract()
+    this.apiService.getContractById(this.userId)
       .subscribe(
         data => {
           this.contractData = {
@@ -57,7 +67,9 @@ export class EmployeeComponent implements OnInit {
           };
         },
         err => {
-          if (err.status == 404) {
+          if (err.status == 403) {
+            this.forbidden = true;
+          } else if (err.status == 404) {
             this.noContract = true;
           }
         }

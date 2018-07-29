@@ -24,18 +24,21 @@ import { AuthGuard } from "./auth/guards/auth.guard";
 import { EmployeeComponent } from './content/employee/employee.component';
 import { ApiService } from "./services/api.service";
 import { MapToIterable } from "./pipes/maptoiterable.pipe";
+import { EmployeeListComponent } from "./content/employeelist/employeelist.component";
+import { EmployeeForeignComponent } from "./content/employeeforeign/employeeforeign.component";
 
 const appRoutes: Routes = [
   {
     path: 'home', component: DashboardComponent, canActivate: [AuthGuard],
     children: [
-      {path: '', redirectTo: 'employee', pathMatch: 'full' },
-      {path: 'employee', component: EmployeeComponent}
+      { path: '', component: EmployeeComponent },
+      { path: 'list', component: EmployeeListComponent },
+      { path: 'list/:id', component: EmployeeForeignComponent }
     ]
   },
   { path: 'signin', component: SigninComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -44,6 +47,8 @@ const appRoutes: Routes = [
       DashboardComponent,
       SigninComponent,
       EmployeeComponent,
+      EmployeeListComponent,
+      EmployeeForeignComponent,
       MapToIterable
   ],
   imports: [

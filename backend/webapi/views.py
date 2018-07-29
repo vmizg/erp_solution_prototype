@@ -13,6 +13,12 @@ from webapi.serializers import EmployeeSerializer, EmployeeContractSerializer, U
 
 
 class EmployeeDetailView(RetrieveUpdateAPIView):
+    """
+    View selected employee public data.
+    Permissions: owner: view & edit, everyone else: view
+    Only possible to update data through the HTTP PUT form below
+    while the Angular form is not implemented.
+    """
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     permission_classes = (permissions.IsAuthenticated,
@@ -20,6 +26,10 @@ class EmployeeDetailView(RetrieveUpdateAPIView):
 
 
 class EmployeeView(ListAPIView):
+    """
+    View employees.
+    Permissions: everyone: view.
+    """
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     permission_classes = (permissions.IsAuthenticated,
@@ -27,6 +37,12 @@ class EmployeeView(ListAPIView):
 
 
 class EmployeeContractDetailView(RetrieveUpdateAPIView):
+    """
+    View selected employee contract data.
+    Permissions: owner: view & edit, admin: view.
+    Only possible to update data through the HTTP PUT form below
+    while the Angular form is not implemented.
+    """
     queryset = EmployeeContract.objects.all()
     serializer_class = EmployeeContractSerializer
     permission_classes = (permissions.IsAuthenticated,
@@ -34,6 +50,10 @@ class EmployeeContractDetailView(RetrieveUpdateAPIView):
 
 
 class EmployeeContractView(ListAPIView):
+    """
+    View employee contracts.
+    Permissions: admin: view.
+    """
     queryset = EmployeeContract.objects.all()
     serializer_class = EmployeeContractSerializer
     permission_classes = (permissions.IsAuthenticated,
@@ -41,18 +61,22 @@ class EmployeeContractView(ListAPIView):
 
 
 class UserDetailView(RetrieveAPIView):
+    """
+    View authenticated user data.
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated,
-                          IsUserOwnerOrDeny,)
+                          IsOwnerOrReadOnly,)
 
 
 class UserView(ListAPIView):
     """
-    This view is only accessible by the admin, and it is for
-    debugging purposes (to list registered users on the database).
+    View users.
+    Permissions: everyone: view.
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticated,
-                          IsAdminOrDeny,)
+                          IsOwnerOrReadOnly,)
+

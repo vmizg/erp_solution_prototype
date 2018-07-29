@@ -1,4 +1,4 @@
-<h1 class="mat-h1">Employee dashboard</h1>
+<h1 class="mat-h1">Selected employee information</h1>
 <mat-grid-list cols="2" rowHeight="400px">
   <mat-card class="employee-card">
     <mat-card-header *ngIf="this.first_name != '' && this.last_name != ''">
@@ -28,29 +28,31 @@
     </mat-tab>
     <mat-tab label="Contract">
       <ng-template matTabContent>
-        <mat-list role="list"  *ngIf="(this.contractData | json) != '{}'">
+        <mat-list role="list" *ngIf="(this.contractData | json) != '{}'">
           <mat-list-item role="listitem" *ngFor="let kv of this.contractData | mapToIterable">
             <h4>{{ kv.key }}</h4>:
             <span style="position: absolute; right: 15px">{{ kv.val }}</span>
           </mat-list-item>
         </mat-list>
         <div *ngIf="(this.contractData | json) == '{}'">
-          <h3 class="mat-h3" *ngIf="!this.noContract">Loading contract data...</h3>
-          <h3 class="mat-h3" *ngIf="this.noContract">No contract data found.</h3>
+          <h3 class="mat-h3" *ngIf="!this.forbidden && !this.noContract">Loading contract data...</h3>
+          <h3 class="mat-h3" *ngIf="!this.forbidden && this.noContract">No contract data found.</h3>
+          <h3 class="mat-h3" *ngIf="this.forbidden">You are forbidden to view contract data for this employee.</h3>
         </div>
       </ng-template>
     </mat-tab>
     <mat-tab label="Work Permit">
       <ng-template matTabContent>
-         <mat-list role="list"  *ngIf="(this.workpermitData | json) != '{}'">
+        <mat-list role="list" *ngIf="(this.workpermitData | json) != '{}'">
           <mat-list-item role="listitem" *ngFor="let kv of this.workpermitData | mapToIterable">
             <h4>{{ kv.key }}</h4>:
             <span style="position: absolute; right: 15px">{{ kv.val }}</span>
           </mat-list-item>
         </mat-list>
         <div *ngIf="(this.workpermitData | json) == '{}'">
-          <h3 class="mat-h3" *ngIf="!this.noContract">Loading work permit data...</h3>
-          <h3 class="mat-h3" *ngIf="this.noContract">No work permit data found.</h3>
+          <h3 class="mat-h3" *ngIf="!this.forbidden && !this.noContract">Loading work permit data...</h3>
+          <h3 class="mat-h3" *ngIf="!this.forbidden && this.noContract">No work permit data found.</h3>
+          <h3 class="mat-h3" *ngIf="this.forbidden">You are forbidden to view work permit data for this employee.</h3>
         </div>
       </ng-template>
     </mat-tab>

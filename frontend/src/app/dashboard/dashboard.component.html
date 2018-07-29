@@ -7,7 +7,10 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #dashboardMenu="matMenu" xPosition="before">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="onNavigate('/home')">
+      <mat-icon>home</mat-icon>Dashboard
+    </button>
+    <button mat-menu-item (click)="onNavigate('/home/list')">
       <mat-icon>list</mat-icon>Employee list
     </button>
     <mat-divider></mat-divider>
@@ -16,4 +19,6 @@
     </button>
   </mat-menu>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<div class="grid-container">
+  <router-outlet></router-outlet>
+</div>

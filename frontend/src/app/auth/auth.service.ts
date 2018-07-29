@@ -25,7 +25,7 @@ export class AuthService {
       JSON.stringify(user), this.httpOptions).subscribe(
       data => {
         this.updateData(data['token']);
-        this.router.navigate(['/home/employee']);
+        this.router.navigate(['/home']);
       },
       err => {
         this.errors = err['error'];

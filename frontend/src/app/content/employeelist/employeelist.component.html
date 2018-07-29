@@ -1,0 +1,12 @@
+<h1 class="mat-h1">Employee list</h1>
+<mat-card>
+  <mat-nav-list *ngIf="this.employeeList">
+    <mat-list-item *ngFor="let employee of this.employeeList | mapToIterable" (click)="onSelect(employee.val['id'])">
+      <mat-icon mat-list-icon>account_circle</mat-icon>
+      <h3 mat-line>{{ employee.val['first_name'] + " " + employee.val['last_name'] }}</h3>
+      <p mat-line> {{ employee.val['email'] }} </p>
+    </mat-list-item>
+  </mat-nav-list>
+  <h2 class="mat-h2" *ngIf="!this.employeeList && !this.noEmployees">Loading employee list...</h2>
+  <h2 class="mat-h2" *ngIf="!this.employeeList && this.noEmployees">No employees found.</h2>
+</mat-card>
