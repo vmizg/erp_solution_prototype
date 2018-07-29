@@ -1,10 +1,19 @@
-<div class="mat-toolbar">
-  <mat-toolbar class="mat-primary">
-    <h1 class="mat-h1">ERP Solution</h1>
-    <span style="flex: 1 1 auto;"></span>
-    <button mat-raised-button color="accent" (click)="logout()">
+<mat-toolbar class="mat-primary">
+  <h1 class="mat-h1">ERP Solution</h1>
+  <span style="flex: 1 1 auto;"></span>
+  <button mat-icon-button class="menu-button" [matMenuTriggerFor]="dashboardMenu"
+          matTooltip="Site menu"
+          aria-label="Toggle site menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #dashboardMenu="matMenu" xPosition="before">
+    <button mat-menu-item>
+      <mat-icon>list</mat-icon>Employee list
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">
       <mat-icon>directions_walk</mat-icon>Sign out
     </button>
-  </mat-toolbar>
-</div>
+  </mat-menu>
+</mat-toolbar>
 <router-outlet></router-outlet>

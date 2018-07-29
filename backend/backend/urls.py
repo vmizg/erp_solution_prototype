@@ -20,6 +20,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^user/(?P<pk>\d+)', django_rest.UserDetailView.as_view()),
     url(r'^user/', django_rest.UserView.as_view()),
     url(r'^employee/(?P<pk>\d+)', django_rest.EmployeeDetailView.as_view()),
     url(r'^employee/', django_rest.EmployeeView.as_view()),

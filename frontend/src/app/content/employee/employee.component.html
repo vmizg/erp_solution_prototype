@@ -1,36 +1,53 @@
 <div class="grid-container">
   <h1 class="mat-h1">Employee dashboard</h1>
-  <mat-grid-list cols="1" rowHeight="350px">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{ this.title }}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="employeeMenu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #employeeMenu="matMenu" xPosition="before">
-              <button mat-menu-item>Edit information</button>
-            </mat-menu>
-          </mat-card-title>
-          <mat-card-subtitle>
-            Employee
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
-      </mat-card>
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-card class="employee-card">
+      <mat-card-header *ngIf="this.first_name != '' && this.last_name != ''">
+        <mat-card-title>
+          {{ this.first_name + " " + this.last_name  }}
+          <!--<button mat-icon-button class="more-button" [matMenuTriggerFor]="employeeMenu" aria-label="Toggle menu">-->
+            <!--<mat-icon>more_vert</mat-icon>-->
+          <!--</button>-->
+          <!--<mat-menu #employeeMenu="matMenu" xPosition="before">-->
+            <!--<button mat-menu-item>Edit information</button>-->
+          <!--</mat-menu>-->
+        </mat-card-title>
+        <mat-card-subtitle>Employee</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+    <mat-tab-group class="employee-tabs">
+      <mat-tab label="Public information">
+        <ng-template matTabContent>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let kv of this.employeeData | mapToIterable">
+              <h4>{{ kv.key }}</h4>:
+              <span style="position: absolute; right: 15px">{{ kv.val }}</span>
+            </mat-list-item>
+          </mat-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Contract">
+        <ng-template matTabContent>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let kv of this.contractData | mapToIterable">
+              <h4>{{ kv.key }}</h4>:
+              <span style="position: absolute; right: 15px">{{ kv.val }}</span>
+            </mat-list-item>
+          </mat-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Work Permit">
+        <ng-template matTabContent>
+           <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let kv of this.workpermitData | mapToIterable">
+              <h4>{{ kv.key }}</h4>:
+              <span style="position: absolute; right: 15px">{{ kv.val }}</span>
+            </mat-list-item>
+          </mat-list>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
   </mat-grid-list>
-  <mat-tab-group>
-    <mat-tab label="Contract">
-      <ng-template matTabContent>
-        These details will be invisible for other employees
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Work Permit">
-      <ng-template matTabContent>
-        These details will be invisible for other employees
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
 </div>

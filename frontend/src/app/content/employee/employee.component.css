@@ -2,20 +2,18 @@
   margin: 20px;
 }
 
-.dashboard-card {
+.employee-card {
   position: absolute;
   top: 15px;
   left: 15px;
-  right: 15px;
+  right: 70%;
   bottom: 15px;
 }
 
-.more-button {
+.employee-tabs {
   position: absolute;
-  top: 5px;
-  right: 10px;
-}
-
-.dashboard-card-content {
-  text-align: center;
+  top: 15px;
+  left: 33%;
+  right: 15px;
+  bottom: 15px;
 }

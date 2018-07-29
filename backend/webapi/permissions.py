@@ -37,3 +37,18 @@ class IsOwnerOrDeny(permissions.BasePermission):
 
         # Write permissions are only allowed to the contract employee
         return obj.user == request.user
+
+
+class IsUserOwnerOrDeny(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an EmployeeContract to edit it,
+    otherwise deny access completely.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Read permissions are allowed to any request from admin
+        if request.method in permissions.SAFE_METHODS and request.user.is_superuser:
+            return True
+
+        # Write permissions are only allowed to the owner user
+        return obj.id == request.user.id

@@ -7,7 +7,7 @@ from .models import Employee, EmployeeContract
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ('user', 'name', 'working_address', 'work_mobile',
+        fields = ('working_address', 'work_mobile',
                   'work_location', 'work_email', 'work_phone',
                   'public_info')
 
@@ -15,7 +15,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
 class EmployeeContractSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeContract
-        fields = ('user', 'job_title', 'dc_type', 'wage',
+        fields = ('job_title', 'dc_type', 'wage',
                   'salary_struct', 'tp_duration_begin', 'tp_duration_end',
                   'duration_begin', 'duration_end', 'schedule',
                   'pay_schedule', 'visa_no', 'visa_expiry', 'work_permit_no')
@@ -24,6 +24,5 @@ class EmployeeContractSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name',
-                  'last_name', 'email')
+        fields = ('id', 'first_name', 'last_name')
 

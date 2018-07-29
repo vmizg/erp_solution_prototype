@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
+import { JwtHelperService } from '@auth0/angular-jwt';
+
+const jwtHelper = new JwtHelperService();
 
 @Injectable()
 export class AuthService {
 
   // Http options used for making API calls
   private httpOptions: any;
-  // Actual JWT token
-  public token: string;
-  // Token expiration date
-  public token_expires: Date;
-  // Username of the logged in user
-  public username: string;
   // Error messages received from the login attempt
   public errors: any = [];
 
@@ -24,7 +21,8 @@ export class AuthService {
 
   // Use HTTP POST with user credentials to get JWT token from the Django backend
   public login(user) {
-    this.http.post('http://127.0.0.1:8000/jwt-auth/', JSON.stringify(user), this.httpOptions).subscribe(
+    this.http.post('http://127.0.0.1:8000/jwt-auth/',
+      JSON.stringify(user), this.httpOptions).subscribe(
       data => {
         this.updateData(data['token']);
         this.router.navigate(['/home/employee']);
@@ -37,7 +35,8 @@ export class AuthService {
 
   // Use HTTP POST with existing token to refresh JWT token from the Django backend
   public refreshToken() {
-    this.http.post('http://127.0.0.1:8000/jwt-refresh/', JSON.stringify({token: this.token}), this.httpOptions).subscribe(
+    this.http.post('http://127.0.0.1:8000/jwt-refresh/',
+      JSON.stringify({token: localStorage.getItem('token')}), this.httpOptions).subscribe(
       data => {
         this.updateData(data['token']);
       },
@@ -47,23 +46,29 @@ export class AuthService {
     );
   }
 
+  private updateData(token) {
+    localStorage.setItem('token', token);
+    this.errors = [];
+
+    // Decode the token to read the username
+    const token_decoded = jwtHelper.decodeToken(token);
+    localStorage.setItem('user_id', token_decoded.user_id);
+  }
+
   public logout() {
-    this.token = null;
-    this.token_expires = null;
-    this.username = null;
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
 
     this.router.navigate(['/signin']);
   }
 
-  private updateData(token) {
-    this.token = token;
-    this.errors = [];
+  public getToken() {
+    return localStorage.getItem('token');
+  }
 
-    // decode the token to read the username and expiration timestamp
-    const token_parts = this.token.split(/\./);
-    const token_decoded = JSON.parse(window.atob(token_parts[1]));
-    this.token_expires = new Date(token_decoded.exp * 1000);
-    this.username = token_decoded.username;
+  public isAuthenticated(): boolean {
+    const token = this.getToken();
+    return (token != null && !jwtHelper.isTokenExpired(token));
   }
 
 }

@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'webapi.apps.WebapiConfig',
     'rest_framework',
     'rest_framework_jwt',
-    'corsheaders',
-    'annoying'
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -128,6 +127,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# User authentication
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

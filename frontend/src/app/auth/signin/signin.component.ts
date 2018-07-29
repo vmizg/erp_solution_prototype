@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    if (this.authService.token) {
+    if (localStorage.getItem('token')) {
       this.router.navigate(['/home']);
     }
 
@@ -26,10 +26,6 @@ export class SigninComponent implements OnInit {
 
   login() {
     this.authService.login({'username': this.user.username, 'password': this.user.password});
-  }
-
-  refreshToken() {
-    this.authService.refreshToken();
   }
 
   logout() {
