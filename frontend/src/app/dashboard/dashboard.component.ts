@@ -7,7 +7,6 @@ import { AuthService } from "../auth/auth.service";
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
-  title = "John Johnson";
 
   constructor(private authService: AuthService) {}
 

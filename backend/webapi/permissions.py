@@ -36,4 +36,4 @@ class IsOwnerOrDeny(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the contract employee
-        return obj.employee.user == request.user
+        return obj.user == request.user

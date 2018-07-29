@@ -27,7 +27,7 @@ export class AuthService {
     this.http.post('http://127.0.0.1:8000/jwt-auth/', JSON.stringify(user), this.httpOptions).subscribe(
       data => {
         this.updateData(data['token']);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home/employee']);
       },
       err => {
         this.errors = err['error'];

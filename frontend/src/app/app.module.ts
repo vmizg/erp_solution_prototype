@@ -10,22 +10,33 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule,
   MatIconModule, MatButtonModule, MatToolbarModule,
   MatTabsModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 import { LayoutModule } from '@angular/cdk/layout';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from "./auth/auth.service";
 import { AuthGuard } from "./auth/guards/auth.guard";
+import { EmployeeComponent } from './content/employee/employee.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  {
+    path: 'home', component: DashboardComponent, canActivate: [AuthGuard],
+    children: [
+      {path: '', redirectTo: 'employee', pathMatch: 'full' },
+      {path: 'employee', component: EmployeeComponent}
+    ]
+  },
   { path: 'signin', component: SigninComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
   declarations: [
       AppComponent,
       DashboardComponent,
-      SigninComponent
+      SigninComponent,
+      EmployeeComponent
   ],
   imports: [
       BrowserModule,
@@ -40,6 +51,7 @@ const appRoutes: Routes = [
       MatToolbarModule,
       MatFormFieldModule,
       MatInputModule,
+      MatSidenavModule,
       LayoutModule,
       FormsModule,
       RouterModule.forRoot(appRoutes)

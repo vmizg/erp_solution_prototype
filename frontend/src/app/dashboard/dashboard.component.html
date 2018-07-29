@@ -1,44 +1,10 @@
 <div class="mat-toolbar">
   <mat-toolbar class="mat-primary">
-    <h1 class="mat-h1">Employee dashboard</h1>
+    <h1 class="mat-h1">ERP Solution</h1>
     <span style="flex: 1 1 auto;"></span>
     <button mat-raised-button color="accent" (click)="logout()">
       <mat-icon>directions_walk</mat-icon>Sign out
     </button>
   </mat-toolbar>
 </div>
-<div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="350px">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{ this.title }}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="employeeMenu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #employeeMenu="matMenu" xPosition="before">
-              <button mat-menu-item>Edit information</button>
-            </mat-menu>
-          </mat-card-title>
-          <mat-card-subtitle>
-            Employee
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-        </mat-card-content>
-      </mat-card>
-  </mat-grid-list>
-  <mat-tab-group>
-    <mat-tab label="Contract">
-      <ng-template matTabContent>
-        These details will be invisible for other employees
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Work Permit">
-      <ng-template matTabContent>
-        These details will be invisible for other employees
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+<router-outlet></router-outlet>
