@@ -6,6 +6,7 @@ Addresses:
 * Angular is launched at http://localhost:4200/
 
 Missing features for a simplistic, but fully usable ERP system:
+* Proper display of info fields rather than JSON keywords (hardcode display text for JSON keywords)
 * Editing of employee and employee contract data from front-end app
 * Creating and editing users from front-end app
 All of the above are possible within the back-end API GUI interface provided by Django REST Framework.
