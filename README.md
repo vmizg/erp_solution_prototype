@@ -1,5 +1,5 @@
-# anquan_assignment
-ERP website prototype based on Django REST Framework + Angular
+# erp_solution_prototype
+Employee Resource Planning website prototype based on Django REST Framework + Angular
 
 Addresses:
 * DRF is launched at http://127.0.0.1:8000/
