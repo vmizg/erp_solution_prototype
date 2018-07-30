@@ -1,5 +1,6 @@
 # erp_solution_prototype
-Employee Resource Planning website prototype based on Django REST Framework + Angular
+Employee Resource Planning website prototype based on Django REST Framework + Angular.
+Implemented from scratch in 3 days time.
 
 Addresses:
 * DRF is launched at http://127.0.0.1:8000/
